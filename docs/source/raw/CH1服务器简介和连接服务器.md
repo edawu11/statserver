@@ -34,6 +34,8 @@
 
 ![image.png](https://cdn.nlark.com/yuque/0/2022/png/12762052/1662197058837-5df9a7b6-028b-4334-8682-a8616d386fa4.png#averageHue=%23483733&clientId=u108e5d6b-b4cd-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=39&id=udd130d1f&margin=%5Bobject%20Object%5D&name=image.png&originHeight=59&originWidth=56&originalType=binary&ratio=1&rotation=0&showTitle=false&size=3798&status=done&style=none&taskId=ud4a9204a-3640-44b7-83c1-eed0914975c&title=&width=37.333333333333336)
 
+![image.png](1.1.png)
+
 2. 点击左上角**Session**后，在弹出的窗口中点击第一个**SSH**
 
 ![image.png](https://cdn.nlark.com/yuque/0/2022/png/12762052/1662196944240-b3cdeb61-0419-4e00-a783-874617781e4c.png#averageHue=%23faf4f2&clientId=u108e5d6b-b4cd-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=75&id=u35935960&margin=%5Bobject%20Object%5D&name=image.png&originHeight=116&originWidth=973&originalType=binary&ratio=1&rotation=0&showTitle=false&size=18054&status=done&style=stroke&taskId=u41035d91-f476-4a49-bfc1-1914d5a7588&title=&width=631.6666870117188)
