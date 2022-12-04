@@ -1,6 +1,12 @@
-# 7 参考资料和补充材料
+# 7 其它补充材料
 
-1. 刘遄，Linux就该这么学[Linux入门教程之《Linux就该这么学》.pdf](file/Linux入门教程之《Linux就该这么学》.pdf)
-2. 胡杰 ，如何使用服务器[如何使用服务器.pptx](file/如何使用服务器.pptx)
-3. 郭欣宸，服务器使用指南[服务器使用指南.pdf](file/服务器使用指南.pdf)
-4. Linux十大常用命令[Linux十大常用命令.pdf](file/Linux十大常用命令.pdf)
+## 服务器介绍
+1. 胡杰 ，[如何使用服务器](https://maiimg.com/dec/d97849645862@pdf)
+2. 郭欣宸，[服务器使用指南](https://maiimg.com/dec/d92578645260@pdf)
+
+## Linux系统使用
+1. 刘遄，[Linux入门教程之《Linux就该这么学》](https://maiimg.com/dec/d93858642201@pdf)
+2. [Linux十大常用命令](https://maiimg.com/dec/d91053637443@pdf)
+
+## 环境配置
+1. 黎青山，[vscode连接远程服务器并实现本地编写jupyter_notebook](https://maiimg.com/dec/d94047648506@pdf)
