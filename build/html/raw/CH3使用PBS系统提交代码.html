@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3 PBS程序提交系统 &mdash; XMUSTATSERVER 0.1.0 文档</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="4 服务器环境配置" href="CH4%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE.html" />
+    <link rel="prev" title="2 Linux系统基本知识" href="CH2Linux%E7%B3%BB%E7%BB%9F%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> XMUSTATSERVER
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">一、服务器使用基本教程</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="CH1%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%80%E4%BB%8B%E5%92%8C%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1%E5%99%A8.html">1 服务器简介和连接服务器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CH2Linux%E7%B3%BB%E7%BB%9F%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86.html">2 Linux系统基本知识</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">3 PBS程序提交系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">3.1 PBS系统基本命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cpu">3.2 调用CPU运行编程程序</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#r">3.2.1 R语言（附示例）</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">（一）版本说明</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">（二）R包的安装</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">（三）单核任务提交方法：PBS脚本</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#perl">（四）多核任务提交方法一：Perl脚本</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">（五）多核任务提交方法二：结合R并行计算代码</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#matlab">3.2.2 Matlab（附示例）</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id6">（一）版本说明及许可证绑定</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">（二）单核任务提交方法：PBS脚本</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8">（三）多核任务提交方法一：结合Matlab并行计算代码</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#python">3.2.3 Python（附示例）</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id9">（一）版本说明</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id10">（二）单核任务提交方法：PBS脚本</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="CH4%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE.html">4 服务器环境配置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CH5%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%9C%A8%E7%BA%BF%E8%B5%84%E6%BA%90.html">5 使用服务器在线资源</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CH6%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9.html">6 注意事项</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CH7%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99.html">7 参考资料</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">XMUSTATSERVER</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">3 PBS程序提交系统</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/raw/CH3使用PBS系统提交代码.md.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pbs">
+<h1>3 PBS程序提交系统<a class="headerlink" href="#pbs" title="此标题的永久链接"></a></h1>
+<p>终于来到了提交程序的环节！本节介绍的<strong>PBS程序提交系统</strong>，是许多同学调用CPU跑程序的一个排队系统（同学们的程序任务相当于顾客，服务器的核相当于服务员，程序所运行的时间相当于服务时间）。<strong>提交PBS系统的好处是，同学们提交完程序并确保程序已经开始运行的情况下，可以退出服务器终端去完成其它事情（包括关闭个人电脑），此时程序会继续跑，直至程序完成或达到所设的最长时限。</strong></p>
+<section id="id1">
+<h2>3.1 PBS系统基本命令<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h2>
+<p>在使用PBS系统时，会涉及一些常用的命令，包含<strong>查看、提交、删除</strong>等功能。</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th><strong>命令</strong></th>
+<th><strong>功能</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>qstat</code></td>
+<td>查看PBS系统正在运行以及排队的任务</td>
+</tr>
+<tr>
+<td><code>qstat -r</code></td>
+<td>查看PBS系统正在运行以及排队的任务使用的节点数和核数</td>
+</tr>
+<tr>
+<td><code>pbsnodes -a</code></td>
+<td>查看PBS系统是否空闲</td>
+</tr>
+<tr>
+<td><code>qsub 脚本文件</code></td>
+<td>提交任务</td>
+</tr>
+<tr>
+<td><code>qdel 任务序号</code></td>
+<td>删除单个任务</td>
+</tr>
+<tr>
+<td><code>qdel {始序号..末序号}</code></td>
+<td>删除批量任务</td>
+</tr>
+</tbody>
+</table></section>
+<section id="cpu">
+<h2>3.2 调用CPU运行编程程序<a class="headerlink" href="#cpu" title="此标题的永久链接"></a></h2>
+<p>在提交程序之前，首先使用<code class="docutils literal notranslate"><span class="pre">pbsnodes</span> <span class="pre">-a</span></code>查看服务器<strong>是否有空闲的核</strong>，如显示<strong>state=free</strong>，则可以提交程序，否则，先不提交程序，防止PBS系统崩溃。</p>
+<p><strong>示例</strong></p>
+<p><img alt="image.png" src="https://cdn.nlark.com/yuque/0/2022/png/12762052/1661674881492-bd00ebbb-431e-41de-9f5d-106f685dd45b.png#averageHue=%23312725&amp;clientId=u76a6eea3-44cc-4&amp;crop=0&amp;crop=0&amp;crop=1&amp;crop=1&amp;from=paste&amp;height=83&amp;id=u0996bc0e&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=125&amp;originWidth=428&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=8068&amp;status=done&amp;style=none&amp;taskId=u5d9a759b-121a-49d6-8b99-219052e65f9&amp;title=&amp;width=285.3333333333333" /></p>
+<p>在下面的小节中，我们会介绍<strong>R语言、Matlab以及Python</strong>三种类型代码的提交，同学们可以根据需求直接看相应的小节。</p>
+<section id="r">
+<h3>3.2.1 R语言（附示例）<a class="headerlink" href="#r" title="此标题的永久链接"></a></h3>
+<section id="id2">
+<h4>（一）版本说明<a class="headerlink" href="#id2" title="此标题的永久链接"></a></h4>
+<p>R语言版本：4.1.3（2022-03-10）</p>
+<blockquote>
+<div><p><strong>提醒</strong>如果同学们发现该R语言版本满足不了自己的需求，可以自行在自己的账户下安装合适的R语言版本。</p>
+</div></blockquote>
+</section>
+<section id="id3">
+<h4>（二）R包的安装<a class="headerlink" href="#id3" title="此标题的永久链接"></a></h4>
+<ol class="simple">
+<li><p>键入<code class="docutils literal notranslate"><span class="pre">R</span></code>回车后进入R语言环境；</p></li>
+<li><p>使用<code class="docutils literal notranslate"><span class="pre">install.packages()</span></code>命令安装R包，回车后稍等片刻会弹出镜像选择窗口，选择后确认即可；</p></li>
+</ol>
+<blockquote>
+<div><p>提醒如果出现** grab failed: window not viewable** 的报错，意思是镜像选择窗口抓取失败，可以在R环境下输入<code class="docutils literal notranslate"><span class="pre">chooseCRANmirror(graphics=FALSE)</span></code> ，此后再执行<code class="docutils literal notranslate"><span class="pre">install.packages()</span></code>就不会出现窗口，而是通过输入镜像对应的序号选择特定的镜像地址。</p>
+</div></blockquote>
+<ol class="simple">
+<li><p>安装后的R包会存在自己用户的一个子目录下，使用<code class="docutils literal notranslate"><span class="pre">library()</span></code>查看是否报错，若无，R包安装完成；</p></li>
+<li><p>输入<code class="docutils literal notranslate"><span class="pre">q()</span></code>或者<code class="docutils literal notranslate"><span class="pre">CTRL+C</span></code>退出R界面。</p></li>
+</ol>
+</section>
+<section id="id4">
+<h4>（三）单核任务提交方法：PBS脚本<a class="headerlink" href="#id4" title="此标题的永久链接"></a></h4>
+<ol class="simple">
+<li><p>将要运行的R代码拖入到服务器目录中；</p></li>
+<li><p>进入R代码所在目录，使用文本编辑器Vim/VI编写任务脚本；</p></li>
+<li><p>使用<code class="docutils literal notranslate"><span class="pre">qsub</span></code>命令提交任务。</p></li>
+</ol>
+<p><strong>示例</strong></p>
+<ol class="simple">
+<li><p>准备好要运行的R脚本（<strong>test1.R</strong>），该代码的功能是生成1000个标准正态分布的随机数并计算样本均值，最后将均值保存为.R文件。</p></li>
+</ol>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">set.seed</span><span class="p">(</span><span class="m">202209</span><span class="p">)</span> <span class="c1"># 设定随机种子，保证模拟可以复现，非常重要！</span>
+<span class="n">a</span> <span class="o">=</span> <span class="nf">rnorm</span><span class="p">(</span><span class="m">1000</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">1</span><span class="p">)</span>
+<span class="n">a_mean</span> <span class="o">=</span> <span class="nf">mean</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="nf">setwd</span><span class="p">(</span><span class="s">&quot;/project1/wuyida/R/test&quot;</span><span class="p">)</span> <span class="c1"># 设置文件要保存的路径</span>
+<span class="nf">save</span><span class="p">(</span><span class="n">a_mean</span><span class="p">,</span><span class="n">file</span><span class="o">=</span><span class="s">&quot;a_mean.R&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<ol class="simple">
+<li><p>将<strong>test1.R</strong>拖入到服务器的目录中，如/project1/wuyida/R/test/。</p></li>
+</ol>
+<p><img alt="image.png" src="https://cdn.nlark.com/yuque/0/2022/png/12762052/1661678197761-44086b0e-722b-4bb0-9af4-df23992e1cfd.png#averageHue=%23fbf5f3&amp;clientId=u76a6eea3-44cc-4&amp;crop=0&amp;crop=0&amp;crop=1&amp;crop=1&amp;from=paste&amp;height=314&amp;id=uf13f8c16&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=471&amp;originWidth=567&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=22976&amp;status=done&amp;style=stroke&amp;taskId=u76cfb338-748d-4036-afc2-590ed11876e&amp;title=&amp;width=378" /></p>
+<ol class="simple">
+<li><p>使用命令行<code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">/project1/wuyida/R/test/</span></code>进入该目录，使用<strong>文本编辑器</strong><code class="docutils literal notranslate"><span class="pre">vim</span> <span class="pre">test</span></code><strong>（见2.3节）<strong>编写任务脚本</strong>test</strong>，<strong>test</strong>的内容如下所示。<strong>同学们可以直接将下面的脚本复制后使用鼠标右键（ctrl+v不行）将其直接粘贴到test的文本编辑界面，再保存退出。</strong></p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>#!/bin/sh
+#PBS -l nodes=1:ppn=1          
+#PBS -l walltime=30000:00:00       
+#PBS -o routput                   
+#PBS -e rerror
+#PBS -m abe
+#PBS -M example@xxx.xx 
+cd $PBS_O_WORKDIR
+/usr/local/bin/R &lt; test1.R --save
+</pre></div>
+</div>
+<p><strong>注释</strong>
+第一行：指此脚本使用/bin/sh来解释执行
+第二行：设置程序所需要的资源，nodes代表节点数，ppn代表核数，这里两者均设为1
+第三行：设置程序最长运行时间
+第四行：设置程序的输出结果文件名称（与脚本文件在同一个目录下）
+第五行：设置程序的错误提示的文件名称（与脚本文件在同一个目录下），用户可以在这个文件内查看任务的报错信息
+第六、七行：设置任务完成自动发送邮箱提醒功能，同学们可以根据自身需要选择这两行是否保留
+第八行：进入执行命令的工作目录
+第九行：/usr/local/bin/R是R语言所在的路径（Linux中可以使用<code class="docutils literal notranslate"><span class="pre">which</span> <span class="pre">R</span></code>查看），test1.R是待执行的R代码</p>
+<ol class="simple">
+<li><p>使用<code class="docutils literal notranslate"><span class="pre">qsub</span> <span class="pre">test</span></code>命令提交程序，使用<code class="docutils literal notranslate"><span class="pre">qstat</span></code>查看任务进程。</p></li>
+</ol>
+<p><img alt="image.png" src="https://cdn.nlark.com/yuque/0/2022/png/12762052/1661679095216-aca5de1b-ab10-4e12-9813-77bd66321f7f.png#averageHue=%232f2d2b&amp;clientId=u76a6eea3-44cc-4&amp;crop=0&amp;crop=0&amp;crop=1&amp;crop=1&amp;from=paste&amp;height=35&amp;id=u91deebec&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=53&amp;originWidth=392&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=4335&amp;status=done&amp;style=none&amp;taskId=u5ad7c0f4-6f3a-4c13-91b0-56514fb70ce&amp;title=&amp;width=261.3333333333333" /></p>
+<p><strong>注释</strong>34596是任务序号，statml是1号服务器的主机名。</p>
+<p><img alt="image.png" src="https://cdn.nlark.com/yuque/0/2022/png/12762052/1661679539932-ab1d2a6e-4c6a-40bb-8aba-cfe3211f29a6.png#averageHue=%23252423&amp;clientId=u76a6eea3-44cc-4&amp;crop=0&amp;crop=0&amp;crop=1&amp;crop=1&amp;from=paste&amp;height=49&amp;id=u6ce4ece1&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=73&amp;originWidth=927&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=5610&amp;status=done&amp;style=none&amp;taskId=u4467cffb-5bcd-4a3d-9d95-0ca03d89cdd&amp;title=&amp;width=618" />
+<img alt="image.png" src="https://cdn.nlark.com/yuque/0/2022/png/12762052/1661679176262-c6a81b78-2095-49d2-a341-eb1337f66d49.png#averageHue=%232c2a28&amp;clientId=u76a6eea3-44cc-4&amp;crop=0&amp;crop=0&amp;crop=1&amp;crop=1&amp;from=paste&amp;height=17&amp;id=u46f3f94d&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=26&amp;originWidth=931&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=3625&amp;status=done&amp;style=none&amp;taskId=u062a879d-cee9-49c9-97d0-53d932c65b2&amp;title=&amp;width=620.6666666666666" /></p>
+<p><strong>注释</strong>任务序号34596，任务名test，所有者wuyida，运行时间00:00:00，运行状态C（C表示完成或者终止，R表示正在运行，Q表示排队），1号服务器队列代号是batch。</p>
+<ol class="simple">
+<li><p>使用<code class="docutils literal notranslate"><span class="pre">ls</span></code>查看结果文件。</p></li>
+</ol>
+<p><img alt="image.png" src="https://cdn.nlark.com/yuque/0/2022/png/12762052/1661679345081-fe692a58-f3dd-4625-ad8b-3b729a3bc4cf.png#averageHue=%232c2a29&amp;clientId=u76a6eea3-44cc-4&amp;crop=0&amp;crop=0&amp;crop=1&amp;crop=1&amp;from=paste&amp;height=35&amp;id=u58ed5bff&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=53&amp;originWidth=588&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=5421&amp;status=done&amp;style=none&amp;taskId=u47ec1e6d-a482-4d6a-9929-fc67ee115f3&amp;title=&amp;width=392" /></p>
+<p><strong>注释</strong>可以看到结果文件<strong>routput</strong>和错误文件<strong>rerror</strong>均出现在该目录下，同时也可以看到，<strong>我们的测试代码里面保存的a_mean.R文件也出现在该目录下</strong>。</p>
+<p>到此，任务实现完毕O(∩_∩)O</p>
+<p><strong>提醒</strong>如果有多段相同功能的代码需要运行，可以使用编程语言批量生成多组脚本（单核PBS脚本+代码脚本）后一次性提交，下面会提供Perl脚本的示例，同学们也可以使用python、shell等语言实现相同的功能。</p>
+</section>
+<section id="perl">
+<h4>（四）多核任务提交方法一：Perl脚本<a class="headerlink" href="#perl" title="此标题的永久链接"></a></h4>
+<p><strong>功能实现：执行K次模拟，各次模拟执行相同的功能，且之间相互独立，互不干扰</strong></p>
+<p>本方法是借助<strong>Perl</strong>批量生成多个模拟任务各自对应的PBS脚本并一次性提交，步骤如下：</p>
+<ol class="simple">
+<li><p>在要执行的R代码中加入相应的头文件；</p></li>
+<li><p>将R代码和Perl脚本拖入到服务器目录中；</p></li>
+<li><p>使用Perl脚本提交任务；</p></li>
+</ol>
+<p><strong>示例</strong></p>
+<ol class="simple">
+<li><p>准备好要运行的R脚本（<strong>test2.R</strong>），该代码的功能是抽取K组**（具体多少组实验不用在这里指定，每一组实验都相互独立，也不用在这里指定需要调用多少个核）**10000个标准正态分布的随机数并计算各自的样本均值，最后将这些均值保存为.R文件。【注意：此为示例代码，实际中实现此功能完全不需要用多个核跑】</p></li>
+</ol>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">args</span><span class="o">=</span><span class="nf">commandArgs</span><span class="p">(</span><span class="bp">T</span><span class="p">);</span>
+<span class="n">jobB</span><span class="o">=</span><span class="n">args</span><span class="p">[</span><span class="m">1</span><span class="p">];</span>
+<span class="n">jobE</span><span class="o">=</span><span class="n">args</span><span class="p">[</span><span class="m">2</span><span class="p">];</span>
+<span class="n">DirPre</span><span class="o">=</span><span class="n">args</span><span class="p">[</span><span class="m">3</span><span class="p">];</span>
+<span class="n">n</span> <span class="o">=</span> <span class="m">10000</span>
+<span class="nf">for</span><span class="p">(</span><span class="n">p</span> <span class="n">in</span> <span class="n">jobB</span><span class="o">:</span><span class="n">jobE</span><span class="p">){</span>
+  <span class="nf">set.seed</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+  <span class="n">temp</span> <span class="o">=</span> <span class="nf">mean</span><span class="p">(</span><span class="nf">rnorm</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">1</span><span class="p">))</span>
+  <span class="nf">save</span><span class="p">(</span><span class="n">temp</span><span class="p">,</span><span class="n">file</span> <span class="o">=</span> <span class="nf">paste</span><span class="p">(</span><span class="s">&quot;mean_&quot;</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="s">&quot;.R&quot;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">))</span> 
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>注释提醒</strong></p>
+<ul class="simple">
+<li><p>前4行内容为perl头文件，需要复制到你要执行的R代码的<strong>最上方</strong></p></li>
+<li><p>循环次数需要更改为** jobB:jobE**，每一次循环就是一次模拟实验</p></li>
+</ul>
+<ol class="simple">
+<li><p>将<strong>test2.R</strong>和<strong>qsub_r.pl</strong>拖入到服务器的目录中，如/project1/wuyida/R/test/。</p></li>
+</ol>
+<p><img alt="image.png" src="https://cdn.nlark.com/yuque/0/2022/png/12762052/1662821559350-61ac54a3-ed03-46bc-876b-3fcc66708e52.png#averageHue=%23faebe9&amp;clientId=ua8a5475b-6662-4&amp;crop=0&amp;crop=0&amp;crop=1&amp;crop=1&amp;from=paste&amp;height=207&amp;id=kr9fj&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=343&amp;originWidth=451&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=14978&amp;status=done&amp;style=none&amp;taskId=ufdb32fe7-bc6a-49f1-b25b-be13a2ff527&amp;title=&amp;width=271.66668701171875" /></p>
+<p>qsub_r.pl文件下载地址</p>
+<p>链接：<a class="reference external" href="https://pan.baidu.com/s/1pOUWUFctuB8u0h_xWLe84A">https://pan.baidu.com/s/1pOUWUFctuB8u0h_xWLe84A</a></p>
+<p>提取码：lfvu</p>
+<ol class="simple">
+<li><p>进入/project1/wuyida/R/test/，使用perl命令提交代码，<strong>在这里你需要设置调用多少个核以及每个核的运算次数</strong>。</p></li>
+</ol>
+<div class="highlight-perl notranslate"><div class="highlight"><pre><span></span><span class="n">perl</span> <span class="o">.</span><span class="sr">/qsub_r.pl /</span><span class="n">project1</span><span class="sr">/wuyida/</span><span class="n">R</span><span class="sr">/test test_ batch 5 20 /</span><span class="n">project1</span><span class="sr">/wuyida/</span><span class="n">R</span><span class="o">/</span><span class="n">test</span> <span class="n">Rscript</span> <span class="n">test2</span><span class="o">.</span><span class="n">R</span>
+</pre></div>
+</div>
+<p><img alt="image.png" src="https://cdn.nlark.com/yuque/0/2022/png/12762052/1669985982254-cc0ef657-afcd-44ed-aa46-05cfb662a51e.png#averageHue=%23212120&amp;clientId=u2cda27fb-ff71-4&amp;crop=0&amp;crop=0&amp;crop=1&amp;crop=1&amp;from=paste&amp;height=180&amp;id=uff678386&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=270&amp;originWidth=1447&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=17533&amp;status=done&amp;style=none&amp;taskId=u8057beda-e441-4fa6-a15a-21f201bea90&amp;title=&amp;width=964.6666666666666" /></p>
+<p><strong>注释</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">perl</span> <span class="pre">./qsub_Wrapper_0to9.pl</span></code> 调用perl执行qsub_Wrapper_0to9.pl文件，<code class="docutils literal notranslate"><span class="pre">./</span></code>是执行的意思。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/project1/wuyida/R/test</span> <span class="pre">test_</span> <span class="pre">batch</span> <span class="pre">5</span> <span class="pre">20</span></code> <code class="docutils literal notranslate"><span class="pre">/project1/wuyida/R/test</span></code>是任务文件的输出路径（.job/.err/.out），以及你的代码保存文件的默认输出路径（建议在R代码里设好保存路径）；<code class="docutils literal notranslate"><span class="pre">batch</span></code>指队列代号；<code class="docutils literal notranslate"><span class="pre">5</span></code>指调用5个核，<code class="docutils literal notranslate"><span class="pre">20</span></code>指每个核计算20次，所以这里相当于调用5个核执行100次循环，对应于for循环的1-100。如果想要改变循环的起点和终点，可以在 R 代码的for循环部分添加一个常数。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/project1/wuyida/R/test</span></code> 作业运行的工作目录，一般和前面的工作目录保持一致即可。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Rscript</span> <span class="pre">test2.R</span></code> 调用Rscript运行test2.R文件。</p></li>
+</ul>
+<ol class="simple">
+<li><p>使用<code class="docutils literal notranslate"><span class="pre">qstat</span></code>查看任务运行情况</p></li>
+</ol>
+<p><img alt="image.png" src="https://cdn.nlark.com/yuque/0/2022/png/12762052/1661679539932-ab1d2a6e-4c6a-40bb-8aba-cfe3211f29a6.png#averageHue=%23252423&amp;clientId=u76a6eea3-44cc-4&amp;crop=0&amp;crop=0&amp;crop=1&amp;crop=1&amp;from=paste&amp;height=49&amp;id=MDZBe&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=73&amp;originWidth=927&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=5610&amp;status=done&amp;style=none&amp;taskId=u4467cffb-5bcd-4a3d-9d95-0ca03d89cdd&amp;title=&amp;width=618" />
+<img alt="image.png" src="https://cdn.nlark.com/yuque/0/2022/png/12762052/1669985997808-e587d78d-ba26-4473-aba8-4e2b50666950.png#averageHue=%232e2c2a&amp;clientId=u2cda27fb-ff71-4&amp;crop=0&amp;crop=0&amp;crop=1&amp;crop=1&amp;from=paste&amp;height=81&amp;id=ucb7b34bc&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=121&amp;originWidth=930&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=17041&amp;status=done&amp;style=none&amp;taskId=u56acbc91-8583-44ef-be89-a3c87527802&amp;title=&amp;width=620" /></p>
+<p><strong>注释</strong>一个核的运行对应一个任务，42668-42672是这五个任务对应的编号。运行时间00:00:00，（C表示完成或者终止，R表示正在运行，Q表示排队），服务器队列代号是batch。</p>
+<ol class="simple">
+<li><p>可以看到5个任务（共100次模拟）对应的结果文件（100个均值）都在/project1/wuyida/R/test/中。</p></li>
+</ol>
+<p><img alt="image.png" src="https://cdn.nlark.com/yuque/0/2022/png/12762052/1662821716221-7caa1b85-e181-43e5-849e-47346a0710ea.png#averageHue=%2334312e&amp;clientId=ua8a5475b-6662-4&amp;crop=0&amp;crop=0&amp;crop=1&amp;crop=1&amp;from=paste&amp;height=149&amp;id=jXmrB&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=223&amp;originWidth=2023&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=44091&amp;status=done&amp;style=none&amp;taskId=u0692e78d-b868-473d-93d6-36965c2681f&amp;title=&amp;width=1348.6666666666667" /></p>
+<p>到此，任务实现完毕O(∩_∩)O</p>
+</section>
+<section id="id5">
+<h4>（五）多核任务提交方法二：结合R并行计算代码<a class="headerlink" href="#id5" title="此标题的永久链接"></a></h4>
+<p><strong>功能实现：待执行任务的某步骤可以分解成K个独立个体单独计算再合并，充分利用计算资源。（在有些情况下与方法一等同）</strong></p>
+<ol class="simple">
+<li><p>将要运行的R代码**（有使用并行计算代码的）**拖入到服务器目录中；</p></li>
+<li><p>进入R代码所在目录，使用文本编辑器Vim/VI编写任务脚本；</p></li>
+<li><p>使用<code class="docutils literal notranslate"><span class="pre">qsub</span></code>命令提交任务。</p></li>
+</ol>
+<blockquote>
+<div><p>提醒多核任务提交与单核任务提交的步骤一样，不同的是R代码需要加入并行代码 以及 任务脚本需要指定使用多少个核。</p>
+</div></blockquote>
+<p><strong>示例</strong></p>
+<ol class="simple">
+<li><p>准备好要运行的R脚本（<strong>test1.R</strong>），该代码的功能是调用5个核抽100组10000个标准正态分布的随机数并计算各自的样本均值，最后将100个均值保存为.R文件。<strong>【注意：此为示例代码，实际中实现此功能完全不需要并行，简单运算使用并行计算是画蛇添足】</strong></p></li>
+</ol>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">set.seed</span><span class="p">(</span><span class="m">202209</span><span class="p">)</span> <span class="c1"># 设定随机种子，保证模拟可以复现，非常重要！</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">snowfall</span><span class="p">)</span> <span class="c1"># 调用实现并行的包</span>
+<span class="n">K</span> <span class="o">=</span> <span class="m">100</span> <span class="c1"># 实验次数</span>
+<span class="nf">sfInit</span><span class="p">(</span><span class="n">parallel</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> <span class="n">cpus</span> <span class="o">=</span> <span class="m">5</span><span class="p">)</span> <span class="c1"># 设置使用的CPU核数，必须能整除K</span>
+<span class="n">single_fun</span> <span class="o">=</span> <span class="nf">function</span><span class="p">(</span><span class="n">index</span><span class="p">,</span><span class="n">n</span><span class="p">){</span>
+  <span class="n">temp</span> <span class="o">=</span> <span class="nf">rnorm</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">1</span><span class="p">)</span>
+  <span class="nf">return</span><span class="p">(</span><span class="nf">mean</span><span class="p">(</span><span class="n">temp</span><span class="p">))</span>
+  <span class="p">}</span>
+<span class="n">allmean</span> <span class="o">=</span> <span class="nf">sfSapply</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="n">K</span><span class="p">,</span><span class="n">single_fun</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="m">10000</span><span class="p">)</span> <span class="c1"># 调用5个核计算K个实验，在这个例子中，每个核执行20个实验</span>
+<span class="nf">sfStop</span><span class="p">()</span> <span class="c1"># 停止并行</span>
+<span class="nf">setwd</span><span class="p">(</span><span class="s">&quot;/project1/wuyida/R/test&quot;</span><span class="p">)</span> <span class="c1"># 设置文件要保存的路径</span>
+<span class="nf">save</span><span class="p">(</span><span class="n">allmean</span><span class="p">,</span><span class="n">file</span><span class="o">=</span><span class="s">&quot;allmean.R&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>提醒</strong>上述代码中并行代码调用的是snowfall包，这部分是可以替换的。R语言中实现并行计算的包，如parallel、snowfall等（<a class="reference external" href="https://cran.r-project.org/web/views/HighPerformanceComputing.html">HighPerformanceComputing</a>），不同的包有各自的有优缺点。具体如何使用同学们可以上网查找如何使用。</p>
+</div></blockquote>
+<ol class="simple">
+<li><p>将<strong>test1.R</strong>拖入到服务器的目录中，如/project1/wuyida/R/test/。</p></li>
+</ol>
+<p><img alt="image.png" src="https://cdn.nlark.com/yuque/0/2022/png/12762052/1662190175848-51b9d893-7d30-431c-a9bd-53612461abb4.png#averageHue=%23faf1ef&amp;clientId=u108e5d6b-b4cd-4&amp;crop=0&amp;crop=0&amp;crop=1&amp;crop=1&amp;from=paste&amp;height=178&amp;id=u728b4324&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=267&amp;originWidth=819&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=14984&amp;status=done&amp;style=stroke&amp;taskId=ub1c47a68-5e13-4e5b-909a-2ede3813441&amp;title=&amp;width=546" /></p>
+<ol class="simple">
+<li><p>使用命令行<code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">/project1/wuyida/R/test/</span></code>进入该目录，使用<strong>文本编辑器</strong><code class="docutils literal notranslate"><span class="pre">vim</span> <span class="pre">test</span></code><strong>（见2.3节）<strong>编写任务脚本</strong>test</strong>，<strong>test</strong>的内容如下所示。<strong>同学们可以直接将下面的脚本复制后使用鼠标右键（ctrl+v不行）将其直接粘贴到test的文本编辑界面，再保存退出。</strong></p></li>
+<li><p><strong>粘贴到test的文本编辑界面，再保存退出。</strong></p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>#!/bin/sh
+#PBS -l nodes=1:ppn=5         
+#PBS -l walltime=30000:00:00       
+#PBS -o routput                   
+#PBS -e rerror
+#PBS -m abe
+#PBS -M example@xxx.xx 
+cd $PBS_O_WORKDIR
+/usr/local/bin/R &lt; test1.R --save
+</pre></div>
+</div>
+<p><strong>注释</strong>
+第一行：指此脚本使用/bin/sh来解释执行
+第二行：设置程序所需要的资源，nodes代表节点数，ppn代表核数，这里调用了5个核。
+提醒注意1号服务器的nodes默认为1，不需要改动。2号服务器是有两个节点，所以使用时需要指定nodes=stat1-0或nodes=stat2-0或nodes=2
+第三行：设置程序最长运行时间
+第四行：设置程序的输出结果文件名称（与脚本文件在同一个目录下）
+第五行：设置程序的错误提示的文件名称（与脚本文件在同一个目录下），用户可以在这个文件内查看任务的报错信息
+第六、七行：设置任务完成自动发送邮箱提醒功能，同学们可以根据自身需要选择这两行是否保留
+第八行：进入执行命令的工作目录
+第九行：/usr/local/bin/R是R语言所在的路径（Linux中可以使用<code class="docutils literal notranslate"><span class="pre">which</span> <span class="pre">R</span></code>查看），test1.R是待执行的R代码</p>
+<ol class="simple">
+<li><p>使用<code class="docutils literal notranslate"><span class="pre">qsub</span> <span class="pre">test</span></code>命令提交程序，使用<code class="docutils literal notranslate"><span class="pre">qstat</span></code>查看任务进程。</p></li>
+</ol>
+<p><img alt="image.png" src="https://cdn.nlark.com/yuque/0/2022/png/12762052/1662189951217-b2bce472-606d-482b-addd-d7cc7706d0af.png#averageHue=%23302d2b&amp;clientId=u108e5d6b-b4cd-4&amp;crop=0&amp;crop=0&amp;crop=1&amp;crop=1&amp;from=paste&amp;height=35&amp;id=ucd064757&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=53&amp;originWidth=389&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=4328&amp;status=done&amp;style=none&amp;taskId=u950dcd5f-b9de-4fec-bef6-eedfaca7044&amp;title=&amp;width=259.3333333333333" /></p>
+<p><strong>注释</strong>34905是任务序号，statml是1号服务器的主机名。</p>
+<p><img alt="image.png" src="https://cdn.nlark.com/yuque/0/2022/png/12762052/1661679539932-ab1d2a6e-4c6a-40bb-8aba-cfe3211f29a6.png#averageHue=%23252423&amp;clientId=u76a6eea3-44cc-4&amp;crop=0&amp;crop=0&amp;crop=1&amp;crop=1&amp;from=paste&amp;height=49&amp;id=eBul8&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=73&amp;originWidth=927&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=5610&amp;status=done&amp;style=none&amp;taskId=u4467cffb-5bcd-4a3d-9d95-0ca03d89cdd&amp;title=&amp;width=618" />
+<img alt="image.png" src="https://cdn.nlark.com/yuque/0/2022/png/12762052/1662189966536-015cf881-e4d1-4eee-8212-2343a6bb21aa.png#averageHue=%232c2a28&amp;clientId=u108e5d6b-b4cd-4&amp;crop=0&amp;crop=0&amp;crop=1&amp;crop=1&amp;from=paste&amp;height=17&amp;id=u63f5bab9&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=26&amp;originWidth=927&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=3521&amp;status=done&amp;style=none&amp;taskId=udccc3443-84fb-489b-84cd-8e73c44cc86&amp;title=&amp;width=618" /></p>
+<p><strong>注释</strong>任务序号34905，任务名test，所有者wuyida，运行时间00:00:00，（C表示完成或者终止，R表示正在运行，Q表示排队），1号服务器队列代号是batch。</p>
+<ol class="simple">
+<li><p>使用<code class="docutils literal notranslate"><span class="pre">ls</span></code>查看结果文件。</p></li>
+</ol>
+<p><img alt="image.png" src="https://cdn.nlark.com/yuque/0/2022/png/12762052/1662189985570-79af686e-389a-48cc-96f5-0432474312be.png#averageHue=%232d2a29&amp;clientId=u108e5d6b-b4cd-4&amp;crop=0&amp;crop=0&amp;crop=1&amp;crop=1&amp;from=paste&amp;height=35&amp;id=u3ba77eb4&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=52&amp;originWidth=706&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=5643&amp;status=done&amp;style=none&amp;taskId=u8e41d386-f433-4de7-8581-0df684bc400&amp;title=&amp;width=470.6666666666667" /></p>
+<p><strong>注释</strong>可以看到结果文件<strong>routput</strong>和错误文件<strong>rerror</strong>均出现在该目录下，同时也可以看到，<strong>我们的测试代码里面保存的allmean.R文件也出现在该目录下</strong>。
+到此，任务实现完毕O(∩_∩)O</p>
+</section>
+</section>
+<section id="matlab">
+<h3>3.2.2 Matlab（附示例）<a class="headerlink" href="#matlab" title="此标题的永久链接"></a></h3>
+<section id="id6">
+<h4>（一）版本说明及许可证绑定<a class="headerlink" href="#id6" title="此标题的永久链接"></a></h4>
+<p>1号服务器Matlab版本：R2021a</p>
+<p><strong>首次通过服务器进入Matlab需要绑定许可证</strong>，具体步骤如下：</p>
+<ol class="simple">
+<li><p>在命令行键入<code class="docutils literal notranslate"><span class="pre">matlab</span></code>，稍等片刻会弹出窗口如下，点击使用Internet自动激活后点击下一步。</p></li>
+</ol>
+<p><img alt="1662800100427.jpg" src="https://cdn.nlark.com/yuque/0/2022/jpeg/12762052/1662800106082-e0c35a2d-957d-45e5-96dc-6e65365b7138.jpeg#averageHue=%23e2e9ec&amp;clientId=ua8a5475b-6662-4&amp;crop=0&amp;crop=0&amp;crop=1&amp;crop=1&amp;from=paste&amp;height=343&amp;id=u80b70a0f&amp;margin=%5Bobject%20Object%5D&amp;name=1662800100427.jpg&amp;originHeight=695&amp;originWidth=1059&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=125357&amp;status=done&amp;style=stroke&amp;taskId=ub0076456-e64d-4b4a-aeb2-6d5161f9d35&amp;title=&amp;width=523" /></p>
+<ol class="simple">
+<li><p>点击第一个登录到我的账户，输入自己已激活的MathWorks账号密码，并一直点击下一步，直至完成。若账户此前未激活，请点击<a class="reference external" href="http://zhengban.xmu.edu.cn/matlab.html">这里</a>查看厦门大学学生激活步骤。</p></li>
+</ol>
+<p><img alt="image.png" src="https://cdn.nlark.com/yuque/0/2022/png/12762052/1662801113978-f8e914ae-b841-41ee-acef-67ba9a7ee02f.png#averageHue=%23c9d9e2&amp;clientId=ua8a5475b-6662-4&amp;crop=0&amp;crop=0&amp;crop=1&amp;crop=1&amp;from=paste&amp;height=326&amp;id=ue493dc51&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=625&amp;originWidth=1038&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=116888&amp;status=done&amp;style=stroke&amp;taskId=udeb46afe-fb7a-4005-94ba-13bfdeba19a&amp;title=&amp;width=541" /></p>
+<ol class="simple">
+<li><p>绑定完成后在命令行输入<code class="docutils literal notranslate"><span class="pre">matlab</span></code>，稍等片刻可以看到和自己个人电脑完全一样的界面。</p></li>
+</ol>
+<p><img alt="image.png" src="https://cdn.nlark.com/yuque/0/2022/png/12762052/1662801272733-ffeaefe6-c3ce-4f31-9c11-adeb1b440820.png#averageHue=%230b74ae&amp;clientId=ua8a5475b-6662-4&amp;crop=0&amp;crop=0&amp;crop=1&amp;crop=1&amp;from=paste&amp;height=283&amp;id=u70821b6f&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=653&amp;originWidth=682&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=222098&amp;status=done&amp;style=stroke&amp;taskId=u9b459abf-5629-4cc3-8234-702dcadc4a2&amp;title=&amp;width=295.66668701171875" />
+<img alt="image.png" src="https://cdn.nlark.com/yuque/0/2022/png/12762052/1662801295550-630bfc2c-119f-4838-9b00-98b3f839ad03.png#averageHue=%23f9f9f9&amp;clientId=ua8a5475b-6662-4&amp;crop=0&amp;crop=0&amp;crop=1&amp;crop=1&amp;from=paste&amp;height=303&amp;id=u9a1edd63&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=1200&amp;originWidth=2175&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=176600&amp;status=done&amp;style=stroke&amp;taskId=u7f08882e-cfc9-449b-bbde-267035b2057&amp;title=&amp;width=549" /></p>
+<ol class="simple">
+<li><p>点击关闭，下面提交程序时我们无须打开这个界面。</p></li>
+</ol>
+</section>
+<section id="id7">
+<h4>（二）单核任务提交方法：PBS脚本<a class="headerlink" href="#id7" title="此标题的永久链接"></a></h4>
+<ol class="simple">
+<li><p>将要运行的Matlab代码拖入到服务器目录中；</p></li>
+<li><p>进入Matlab代码所在目录，使用文本编辑器Vim/VI编写任务脚本；</p></li>
+<li><p>使用<code class="docutils literal notranslate"><span class="pre">qsub</span></code>命令提交任务。</p></li>
+</ol>
+<p><strong>示例</strong></p>
+<ol class="simple">
+<li><p>准备好要运行的Matlab脚本（<strong>test1.m</strong>），该代码的功能是生成1000个标准正态分布的随机数并计算样本均值，最后将均值保存为.m文件。</p></li>
+</ol>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="nb">rng</span><span class="p">(</span><span class="mi">202209</span><span class="p">);</span><span class="w"> </span>#<span class="w"> </span>设定随机种子，保证模拟可以复现，非常重要！<span class="w"></span>
+<span class="n">n</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1000</span><span class="p">;</span><span class="w"></span>
+<span class="n">x</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">randn</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+<span class="n">mean_x</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">mean</span><span class="p">(</span><span class="n">x</span><span class="p">);</span><span class="w"></span>
+<span class="n">result_table1</span><span class="p">=</span><span class="nb">table</span><span class="p">(</span><span class="n">mean_x</span><span class="p">);</span><span class="w"></span>
+<span class="nb">cd</span><span class="w"> </span><span class="o">/</span><span class="n">project1</span><span class="o">/</span><span class="n">wuyida</span><span class="o">/</span><span class="n">matlab</span><span class="o">/</span><span class="n">test</span><span class="p">;</span><span class="w"> </span>#<span class="w"> </span>设置文件要保存的路径<span class="w"></span>
+<span class="nb">writetable</span><span class="p">(</span><span class="n">result_table1</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;test1.csv&#39;</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<ol class="simple">
+<li><p>将<strong>test1.m</strong>拖入到服务器的目录中，如/project1/wuyida/matlab/test/。</p></li>
+</ol>
+<p><img alt="image.png" src="https://cdn.nlark.com/yuque/0/2022/png/12762052/1662803903500-54dfba57-b221-473f-b1e2-c545481b19be.png#averageHue=%23fbf6f5&amp;clientId=ua8a5475b-6662-4&amp;crop=0&amp;crop=0&amp;crop=1&amp;crop=1&amp;from=paste&amp;height=360&amp;id=udc61f88b&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=540&amp;originWidth=491&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=22832&amp;status=done&amp;style=none&amp;taskId=u110ae28b-bf79-4cc1-bc48-aaa04962ad6&amp;title=&amp;width=327.3333333333333" /></p>
+<ol class="simple">
+<li><p>使用命令行<code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">/project1/wuyida/matlab/test/</span></code>进入该目录，使用<strong>文本编辑器</strong><code class="docutils literal notranslate"><span class="pre">vim</span> <span class="pre">test</span></code><strong>（见2.3节）<strong>编写任务脚本</strong>test</strong>，<strong>test</strong>的内容如下所示。<strong>同学们可以直接将下面的脚本复制后使用鼠标右键（ctrl+v不行）将其直接粘贴到test的文本编辑界面，再保存退出。</strong></p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>#!/bin/sh
+#PBS -l nodes=1:ppn=1          
+#PBS -l walltime=30000:00:00       
+#PBS -o routput                   
+#PBS -e rerror    
+#PBS -m abe
+#PBS -M example@xxx.xx 
+cd $PBS_O_WORKDIR
+/usr/local/bin/matlab &lt; test1.m
+</pre></div>
+</div>
+<p><strong>注释</strong>
+第一行：指此脚本使用/bin/sh来解释执行
+第二行：设置程序所需要的资源，nodes代表节点数，ppn代表核数，这里两者均设为1
+第三行：设置程序最长运行时间
+第四行：设置程序的输出结果文件名称（与脚本文件在同一个目录下）
+第五行：设置程序的错误提示的文件名称（与脚本文件在同一个目录下），用户可以在这个文件内查看任务的报错信息
+第六、七行：设置任务完成自动发送邮箱提醒功能，同学们可以根据自身需要选择这两行是否保留
+第八行：进入执行命令的工作目录
+第九行：/usr/local/bin/matlab是Matlab所在的路径（Linux中可以使用<code class="docutils literal notranslate"><span class="pre">which</span> <span class="pre">matlab</span></code>查看），test1.m是待执行的Matlab代码</p>
+<ol class="simple">
+<li><p>使用<code class="docutils literal notranslate"><span class="pre">qsub</span> <span class="pre">test</span></code>命令提交程序，使用<code class="docutils literal notranslate"><span class="pre">qstat</span></code>查看任务进程。</p></li>
+</ol>
+<p><img alt="image.png" src="https://cdn.nlark.com/yuque/0/2022/png/12762052/1662804024335-50bbea05-8720-4e07-9167-c04d69f1a592.png#averageHue=%23322f2d&amp;clientId=ua8a5475b-6662-4&amp;crop=0&amp;crop=0&amp;crop=1&amp;crop=1&amp;from=paste&amp;height=33&amp;id=u47180a3d&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=50&amp;originWidth=402&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=4296&amp;status=done&amp;style=none&amp;taskId=u56b7bca5-d6eb-48aa-8139-688b0fbe001&amp;title=&amp;width=268" /></p>
+<p><strong>注释</strong>36057是任务序号，statml是服务器的主机名。</p>
+<p><img alt="image.png" src="https://cdn.nlark.com/yuque/0/2022/png/12762052/1661679539932-ab1d2a6e-4c6a-40bb-8aba-cfe3211f29a6.png#averageHue=%23252423&amp;clientId=u76a6eea3-44cc-4&amp;crop=0&amp;crop=0&amp;crop=1&amp;crop=1&amp;from=paste&amp;height=49&amp;id=cWNQ2&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=73&amp;originWidth=927&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=5610&amp;status=done&amp;style=none&amp;taskId=u4467cffb-5bcd-4a3d-9d95-0ca03d89cdd&amp;title=&amp;width=618" />
+<img alt="image.png" src="https://cdn.nlark.com/yuque/0/2022/png/12762052/1662804053399-8fd17870-7ff8-4f19-8d86-106151174505.png#averageHue=%232b2928&amp;clientId=ua8a5475b-6662-4&amp;crop=0&amp;crop=0&amp;crop=1&amp;crop=1&amp;from=paste&amp;height=20&amp;id=ub82cb1d1&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=30&amp;originWidth=929&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=3554&amp;status=done&amp;style=none&amp;taskId=ue9f1bf59-b62b-4a9a-8800-67a3c1b800d&amp;title=&amp;width=619.3333333333334" /></p>
+<p><strong>注释</strong>任务序号36057，任务名test，所有者wuyida，运行时间00:00:00，（C表示完成或者终止，R表示正在运行，Q表示排队），1号服务器队列代号是batch。</p>
+<ol class="simple">
+<li><p>使用<code class="docutils literal notranslate"><span class="pre">ls</span></code>查看结果文件。</p></li>
+</ol>
+<p><img alt="image.png" src="https://cdn.nlark.com/yuque/0/2022/png/12762052/1662804075913-60e40beb-0a9d-4c84-b06d-d4a00d7f7727.png#averageHue=%232e2b29&amp;clientId=ua8a5475b-6662-4&amp;crop=0&amp;crop=0&amp;crop=1&amp;crop=1&amp;from=paste&amp;height=37&amp;id=u748e2cc5&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=55&amp;originWidth=505&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=4460&amp;status=done&amp;style=none&amp;taskId=u03c00108-41c3-4121-8ed8-3b823a085ad&amp;title=&amp;width=336.6666666666667" /></p>
+<p><strong>注释</strong>可以看到结果文件<strong>routput</strong>和错误文件<strong>rerror</strong>均出现在该目录下，同时也可以看到，<strong>我们的测试代码里面保存的test1.csv文件也出现在该目录下</strong>。</p>
+<p>到此，任务实现完毕O(∩_∩)O</p>
+<p><strong>提醒</strong>如果有多段相同功能的代码需要运行，可以使用编程语言批量生成多组脚本（单核PBS脚本+代码脚本）后一次性提交，同学们可以使用python、shell、perl等语言实现此功能。</p>
+</section>
+<section id="id8">
+<h4>（三）多核任务提交方法一：结合Matlab并行计算代码<a class="headerlink" href="#id8" title="此标题的永久链接"></a></h4>
+<p><strong>功能实现：待执行任务的某步骤可以分解成K个独立个体单独计算再合并，充分利用计算资源。（在有些情况下与方法一等同）</strong></p>
+<ol class="simple">
+<li><p>将要运行的matlab代码**（有使用并行计算代码的）**拖入到服务器目录中；</p></li>
+<li><p>进入matlab代码所在目录，使用文本编辑器Vim/VI编写任务脚本；</p></li>
+<li><p>使用<code class="docutils literal notranslate"><span class="pre">qsub</span></code>命令提交任务。</p></li>
+</ol>
+<blockquote>
+<div><p>提醒多核任务提交与单核任务提交的步骤一样，不同的是matlab代码需要加入并行代码 以及 任务脚本需要指定使用多少个核。</p>
+</div></blockquote>
+<p><strong>示例</strong></p>
+<ol class="simple">
+<li><p>准备好要运行的R脚本（<strong>test1.m</strong>），该代码的功能是调用5个核抽100组10000个标准正态分布的随机数并计算各自的样本均值，最后将100个均值保存为.csv文件。【注意：此为示例代码，实际中实现此功能完全不需要并行，简单运算使用并行计算是画蛇添足】</p></li>
+</ol>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="nb">rng</span><span class="p">(</span><span class="mi">202209</span><span class="p">);</span><span class="w"></span>
+<span class="n">p</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">parpool</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span><span class="w"> </span><span class="c">%开启进程池，指定线程数量为5个</span><span class="w"></span>
+<span class="n">data</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">zeros</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+<span class="k">parfor</span><span class="w"> </span><span class="nb">i</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="mi">100</span><span class="w"> </span><span class="c">%使用parfor替代for，启用并行。在这个例子中，每个核执行20次运算</span><span class="w"></span>
+<span class="n">n</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">10000</span><span class="p">;</span><span class="w"></span>
+<span class="n">x</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">randn</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+<span class="n">data</span><span class="p">(</span><span class="nb">i</span><span class="p">)</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">mean</span><span class="p">(</span><span class="n">x</span><span class="p">);</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
+<span class="nb">delete</span><span class="p">(</span><span class="n">p</span><span class="p">);</span><span class="w"></span>
+<span class="n">result_table1</span><span class="p">=</span><span class="nb">table</span><span class="p">(</span><span class="n">data</span><span class="p">);</span><span class="w"></span>
+<span class="nb">cd</span><span class="w"> </span><span class="o">/</span><span class="n">project1</span><span class="o">/</span><span class="n">wuyida</span><span class="o">/</span><span class="n">matlab</span><span class="o">/</span><span class="n">test</span><span class="p">;</span><span class="w"></span>
+<span class="nb">writetable</span><span class="p">(</span><span class="n">result_table1</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;test2.csv&#39;</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>提醒</strong>上述代码中并行代码使用的是<code class="docutils literal notranslate"><span class="pre">parfor</span></code>框架，除了开启和关闭进程池，其余和for循环使用的语法一样（只需要将<code class="docutils literal notranslate"><span class="pre">for</span></code>替换为<code class="docutils literal notranslate"><span class="pre">parfor</span></code>），注意这里for循环的每一个任务要相互独立，互不影响。</p>
+</div></blockquote>
+<ol class="simple">
+<li><p>将<strong>test2.m</strong>拖入到服务器的目录中，如/project1/wuyida/matlab/test/。</p></li>
+</ol>
+<p><img alt="image.png" src="https://cdn.nlark.com/yuque/0/2022/png/12762052/1662821045132-8c0df880-2a57-45f3-9ec1-78fc39cdf496.png#averageHue=%23fbf3f2&amp;clientId=ua8a5475b-6662-4&amp;crop=0&amp;crop=0&amp;crop=1&amp;crop=1&amp;from=paste&amp;height=243&amp;id=u08816dee&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=365&amp;originWidth=450&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=18524&amp;status=done&amp;style=none&amp;taskId=u2592f9e0-6acd-43b7-9c0b-86451403f86&amp;title=&amp;width=300" /></p>
+<ol class="simple">
+<li><p>使用命令行<code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">/project1/wuyida/matlab/test/</span></code>进入该目录，使用<strong>文本编辑器</strong><code class="docutils literal notranslate"><span class="pre">vim</span> <span class="pre">test</span></code><strong>（见2.3节）<strong>编写任务脚本</strong>test</strong>，<strong>test</strong>的内容如下所示。<strong>同学们可以直接将下面的脚本复制后使用鼠标右键（ctrl+v不行）将其直接粘贴到test的文本编辑界面，再保存退出。</strong></p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>#!/bin/sh
+#PBS -l nodes=1:ppn=5           
+#PBS -l walltime=30000:00:00       
+#PBS -o routput                   
+#PBS -e rerror  
+#PBS -m abe
+#PBS -M example@xxx.xx 
+cd $PBS_O_WORKDIR
+/usr/local/bin/matlab &lt; test2.m
+</pre></div>
+</div>
+<p><strong>注释</strong>
+第一行：指此脚本使用/bin/sh来解释执行
+第二行：设置程序所需要的资源，nodes代表节点数，ppn代表核数，这里调用了5个核。
+提醒注意1号服务器的nodes默认为1，不需要改动。2号服务器是有两个节点，所以使用时需要指定nodes=stat1-0或nodes=stat2-0或nodes=2
+第三行：设置程序最长运行时间
+第四行：设置程序的输出结果文件名称（与脚本文件在同一个目录下）
+第五行：设置程序的错误提示的文件名称（与脚本文件在同一个目录下），用户可以在这个文件内查看任务的报错信息
+第六、七行：设置任务完成自动发送邮箱提醒功能，同学们可以根据自身需要选择这两行是否保留
+第八行：进入执行命令的工作目录
+第九行：/usr/local/bin/matlab是Matlab所在的路径（Linux中可以使用<code class="docutils literal notranslate"><span class="pre">which</span> <span class="pre">matlab</span></code>查看），test2.m是待执行的Matlab代码</p>
+<ol class="simple">
+<li><p>使用<code class="docutils literal notranslate"><span class="pre">qsub</span> <span class="pre">test</span></code>命令提交程序，使用<code class="docutils literal notranslate"><span class="pre">qstat</span></code>查看任务进程。</p></li>
+</ol>
+<p><img alt="image.png" src="https://cdn.nlark.com/yuque/0/2022/png/12762052/1662821263954-6a393513-5880-4463-8492-279be74132db.png#averageHue=%23322f2d&amp;clientId=ua8a5475b-6662-4&amp;crop=0&amp;crop=0&amp;crop=1&amp;crop=1&amp;from=paste&amp;height=32&amp;id=u872ce98e&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=48&amp;originWidth=388&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=4293&amp;status=done&amp;style=none&amp;taskId=u0834184b-3fbb-42b5-948a-47153268640&amp;title=&amp;width=258.6666666666667" /></p>
+<p><strong>注释</strong>36058是任务序号，statml是1号服务器的主机名。</p>
+<p><img alt="image.png" src="https://cdn.nlark.com/yuque/0/2022/png/12762052/1661679539932-ab1d2a6e-4c6a-40bb-8aba-cfe3211f29a6.png#averageHue=%23252423&amp;clientId=u76a6eea3-44cc-4&amp;crop=0&amp;crop=0&amp;crop=1&amp;crop=1&amp;from=paste&amp;height=49&amp;id=VZHvg&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=73&amp;originWidth=927&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=5610&amp;status=done&amp;style=none&amp;taskId=u4467cffb-5bcd-4a3d-9d95-0ca03d89cdd&amp;title=&amp;width=618" />
+<img alt="image.png" src="https://cdn.nlark.com/yuque/0/2022/png/12762052/1662821284942-299b2eac-aa94-43cd-9b17-f2920247be83.png#averageHue=%232a2827&amp;clientId=ua8a5475b-6662-4&amp;crop=0&amp;crop=0&amp;crop=1&amp;crop=1&amp;from=paste&amp;height=21&amp;id=u9393d7d7&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=31&amp;originWidth=922&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=3657&amp;status=done&amp;style=none&amp;taskId=ud8ae7ac8-7564-4f0e-9ef6-51374af1aa9&amp;title=&amp;width=614.6666666666666" /></p>
+<p><strong>注释</strong>任务序号36058，任务名test，所有者wuyida，运行时间00:00:00，（C表示完成或者终止，R表示正在运行，Q表示排队），1号服务器队列代号是batch。</p>
+<ol class="simple">
+<li><p>使用<code class="docutils literal notranslate"><span class="pre">ls</span></code>查看结果文件。</p></li>
+</ol>
+<p><img alt="image.png" src="https://cdn.nlark.com/yuque/0/2022/png/12762052/1662821306002-a4b9cc94-c372-41e3-acb8-2655b7ad244c.png#averageHue=%232b2927&amp;clientId=ua8a5475b-6662-4&amp;crop=0&amp;crop=0&amp;crop=1&amp;crop=1&amp;from=paste&amp;height=38&amp;id=u1d2d94ca&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=57&amp;originWidth=754&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=5075&amp;status=done&amp;style=none&amp;taskId=ude87e4f4-d507-4ca4-ab20-d7d41ee11fb&amp;title=&amp;width=502.6666666666667" /></p>
+<p><strong>注释</strong>可以看到结果文件<strong>routput</strong>和错误文件<strong>rerror</strong>均出现在该目录下，同时也可以看到，<strong>我们的测试代码里面保存的test2.csv文件也出现在该目录下</strong>。</p>
+<p>到此，任务实现完毕O(∩_∩)O</p>
+</section>
+</section>
+<section id="python">
+<h3>3.2.3 Python（附示例）<a class="headerlink" href="#python" title="此标题的永久链接"></a></h3>
+<section id="id9">
+<h4>（一）版本说明<a class="headerlink" href="#id9" title="此标题的永久链接"></a></h4>
+<p>1号服务器Python版本：3.7.0（2018）</p>
+<blockquote>
+<div><p><strong>提醒</strong>如果同学们发现该Python版本满足不了自己的需求，可以自行在自己的账户下安装合适的Python版本。</p>
+</div></blockquote>
+</section>
+<section id="id10">
+<h4>（二）单核任务提交方法：PBS脚本<a class="headerlink" href="#id10" title="此标题的永久链接"></a></h4>
+<ol class="simple">
+<li><p>将要运行的python代码拖入到服务器目录中；</p></li>
+<li><p>进入python代码所在目录，使用文本编辑器Vim/VI编写任务脚本；</p></li>
+<li><p>使用<code class="docutils literal notranslate"><span class="pre">qsub</span></code>命令提交任务。</p></li>
+</ol>
+<p><strong>示例</strong></p>
+<ol class="simple">
+<li><p>准备好要运行的python脚本（<strong>test1.py</strong>），该代码的功能是生成1000个标准正态分布的随机数，最后将所有随机数保存为.csv文件。</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">st</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">202209</span><span class="p">)</span> 
+<span class="n">a</span><span class="o">=</span><span class="n">st</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">dataframe</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;a&#39;</span><span class="p">:</span><span class="n">a</span><span class="p">})</span>
+<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s2">&quot;/project1/wuyida/python/test&quot;</span><span class="p">)</span>
+<span class="n">dataframe</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;test1.csv&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<ol class="simple">
+<li><p>将<strong>test1.py</strong>拖入到服务器的目录中，如/project1/wuyida/python/test/。</p></li>
+</ol>
+<p><img alt="image.png" src="https://cdn.nlark.com/yuque/0/2022/png/12762052/1662906186537-719092c0-5974-4ad5-a372-5e11d7ac9275.png#averageHue=%23fbf1ef&amp;clientId=ubd6fa7d9-cc4e-4&amp;crop=0&amp;crop=0&amp;crop=1&amp;crop=1&amp;from=paste&amp;height=187&amp;id=u4ca27f6b&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=280&amp;originWidth=450&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=10696&amp;status=done&amp;style=none&amp;taskId=ua4866aa6-ae6e-4af4-99f3-0ab97a43428&amp;title=&amp;width=300" /></p>
+<ol class="simple">
+<li><p>使用命令行<code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">/project1/wuyida/python/test/</span></code>进入该目录，使用<strong>文本编辑器</strong><code class="docutils literal notranslate"><span class="pre">vim</span> <span class="pre">test</span></code><strong>（见2.3节）<strong>编写任务脚本</strong>test</strong>，<strong>test</strong>的内容如下所示。<strong>同学们可以直接将下面的脚本复制后使用鼠标右键（ctrl+v不行）将其直接粘贴到test的文本编辑界面，再保存退出。</strong></p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>#!/bin/sh
+#PBS -l nodes=1:ppn=1          
+#PBS -l walltime=30000:00:00       
+#PBS -o routput                   
+#PBS -e rerror
+#PBS -m abe
+#PBS -M example@xxx.xx 
+cd $PBS_O_WORKDIR
+/var/lib/anaconda3/bin/python3 &lt; test1.py
+</pre></div>
+</div>
+<p><strong>注释</strong>
+第一行：指此脚本使用/bin/sh来解释执行
+第二行：设置程序所需要的资源，nodes代表节点数，ppn代表核数，这里两者均设为1
+第三行：设置程序最长运行时间
+第四行：设置程序的输出结果文件名称（与脚本文件在同一个目录下）
+第五行：设置程序的错误提示的文件名称（与脚本文件在同一个目录下），用户可以在这个文件内查看任务的报错信息
+第六、七行：设置任务完成自动发送邮箱提醒功能，同学们可以根据自身需要选择这两行是否保留
+第八行：进入执行命令的工作目录
+第九行：/var/lib/anaconda3/bin/python3是python3所在的路径（Linux中可以使用<code class="docutils literal notranslate"><span class="pre">which</span> <span class="pre">python3</span></code>查看），test1.py是待执行的python代码</p>
+<ol class="simple">
+<li><p>使用<code class="docutils literal notranslate"><span class="pre">qsub</span> <span class="pre">test</span></code>命令提交程序，使用<code class="docutils literal notranslate"><span class="pre">qstat</span></code>查看任务进程。</p></li>
+</ol>
+<p><img alt="image.png" src="https://cdn.nlark.com/yuque/0/2022/png/12762052/1662906714137-1fcc15ed-ed4f-4ca7-b8af-9874caf433ae.png#averageHue=%232e2b2a&amp;clientId=ubd6fa7d9-cc4e-4&amp;crop=0&amp;crop=0&amp;crop=1&amp;crop=1&amp;from=paste&amp;height=39&amp;id=uc23731a6&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=59&amp;originWidth=380&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=3754&amp;status=done&amp;style=none&amp;taskId=ucdcefd82-25c9-4f35-9e80-f311ed43f98&amp;title=&amp;width=253.33333333333334" /></p>
+<p><strong>注释</strong>36126是任务序号，statml是服务器的主机名。</p>
+<p><img alt="image.png" src="https://cdn.nlark.com/yuque/0/2022/png/12762052/1661679539932-ab1d2a6e-4c6a-40bb-8aba-cfe3211f29a6.png#averageHue=%23252423&amp;clientId=u76a6eea3-44cc-4&amp;crop=0&amp;crop=0&amp;crop=1&amp;crop=1&amp;from=paste&amp;height=49&amp;id=wH4Ej&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=73&amp;originWidth=927&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=5610&amp;status=done&amp;style=none&amp;taskId=u4467cffb-5bcd-4a3d-9d95-0ca03d89cdd&amp;title=&amp;width=618" />
+<img alt="image.png" src="https://cdn.nlark.com/yuque/0/2022/png/12762052/1662906739471-cdf766ce-99d5-4066-9563-53e388f7eb45.png#averageHue=%232c2a28&amp;clientId=ubd6fa7d9-cc4e-4&amp;crop=0&amp;crop=0&amp;crop=1&amp;crop=1&amp;from=paste&amp;height=17&amp;id=ueb945339&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=26&amp;originWidth=917&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=3081&amp;status=done&amp;style=none&amp;taskId=uf2e4f30a-0468-4af7-a2a5-28905e66a3d&amp;title=&amp;width=611.3333333333334" /></p>
+<p><strong>注释</strong>任务序号36126，任务名test，所有者wuyida，运行时间00:00:00，（C表示完成或者终止，R表示正在运行，Q表示排队），1号服务器队列代号是batch。</p>
+<ol class="simple">
+<li><p>使用<code class="docutils literal notranslate"><span class="pre">ls</span></code>查看结果文件。</p></li>
+</ol>
+<p><img alt="image.png" src="https://cdn.nlark.com/yuque/0/2022/png/12762052/1662906759723-74fff729-9d45-448e-b8b2-79fc7f5bee42.png#averageHue=%232e2c2a&amp;clientId=ubd6fa7d9-cc4e-4&amp;crop=0&amp;crop=0&amp;crop=1&amp;crop=1&amp;from=paste&amp;height=37&amp;id=u2ac953e3&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=56&amp;originWidth=524&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=4210&amp;status=done&amp;style=none&amp;taskId=u6bf768e4-fe9e-470e-9c82-c51e508b177&amp;title=&amp;width=349.3333333333333" /></p>
+<p><strong>注释</strong>可以看到结果文件<strong>routput</strong>和错误文件<strong>rerror</strong>均出现在该目录下，同时也可以看到，<strong>我们的测试代码里面保存的test1.csv文件也出现在该目录下</strong>。</p>
+<p>到此，任务实现完毕O(∩_∩)O</p>
+<p><strong>提醒</strong>如果有多段相同功能的代码需要运行，可以使用编程语言批量生成多组脚本（单核PBS脚本+代码脚本）后一次性提交，同学们可以使用python、shell、perl等语言实现此功能。</p>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="CH2Linux%E7%B3%BB%E7%BB%9F%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86.html" class="btn btn-neutral float-left" title="2 Linux系统基本知识" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="CH4%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE.html" class="btn btn-neutral float-right" title="4 服务器环境配置" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2022, statml.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
