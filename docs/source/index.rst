@@ -18,7 +18,5 @@
    raw/CH5服务器在线资源.md
    raw/CH6注意事项.md
    raw/CH7参考资料.md
-   try
-   
 
 
