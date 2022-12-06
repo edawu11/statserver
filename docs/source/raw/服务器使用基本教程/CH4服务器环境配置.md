@@ -100,6 +100,7 @@ date
 如需切换不同conda环境只需点右上角，也很方便。
 remark: 可能会提示没有ipykernel，根据提示装一下就行了
 
+- 81的设置可以参考黎青山提供的[vscode连接远程服务器并实现本地编写jupyter_notebook](https://maiimg.com/dec/d94047648506@pdf)
 
 ## 6. 配置tex、Julia等其他环境
 TBD
