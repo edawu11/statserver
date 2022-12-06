@@ -36,7 +36,7 @@ R语言版本：4.1.3（2022-03-10）
 
 （2）使用`install.packages()`命令安装R包，回车后稍等片刻会弹出镜像选择窗口，选择后确认即可；
 
-**提醒**  如果出现** grab failed: window not viewable** 的报错，意思是镜像选择窗口抓取失败，可以在R环境下输入`chooseCRANmirror(graphics=FALSE)` ，此后再执行`install.packages()`就不会出现窗口，而是通过输入镜像对应的序号选择特定的镜像地址。
+**提醒**  如果出现**grab failed: window not viewable** 的报错，意思是镜像选择窗口抓取失败，可以在R环境下输入`chooseCRANmirror(graphics=FALSE)` ，此后再执行`install.packages()`就不会出现窗口，而是通过输入镜像对应的序号选择特定的镜像地址。
 
 （3）安装后的R包会存在自己用户的一个子目录下，使用`library()`查看是否报错，若无，R包安装完成；
 
@@ -65,7 +65,7 @@ save(a_mean,file="a_mean.R")
 
 ![image.png](image/3/3.2.png)
 
-（3）使用命令行`cd /project1/wuyida/R/test/`进入该目录，使用**文本编辑器**`vim test`**（见2.3节）**编写任务脚本**test**，**test**的内容如下所示。**同学们可以直接将下面的脚本复制后使用鼠标右键（ctrl+v不行）将其直接粘贴到test的文本编辑界面，再保存退出。**
+（3）使用命令行`cd /project1/wuyida/R/test/`进入该目录，使用文本编辑器`vim test`（见2.3节）编写任务脚本**test**，**test**的内容如下所示。**同学们可以直接将下面的脚本复制后使用鼠标右键（ctrl+v不行）将其直接粘贴到test的文本编辑界面，再保存退出。**
 ```
 #!/bin/sh
 #PBS -l nodes=1:ppn=1          
@@ -214,9 +214,9 @@ save(allmean,file="allmean.R")
 
 ![image.png](image/3/3.12.png)
 
-（3）使用命令行`cd /project1/wuyida/R/test/`进入该目录，使用**文本编辑器**`vim test`**（见2.3节）**编写任务脚本**test**，**test**的内容如下所示。**同学们可以直接将下面的脚本复制后使用鼠标右键（ctrl+v不行）将其直接粘贴到test的文本编辑界面，再保存退出。**
+（3）使用命令行`cd /project1/wuyida/R/test/`进入该目录，使用文本编辑器`vim test`（见2.3节）编写任务脚本**test**，**test**的内容如下所示。**同学们可以直接将下面的脚本复制后使用鼠标右键（ctrl+v不行）将其直接粘贴到test的文本编辑界面，再保存退出。**
 
-（4）**粘贴到test的文本编辑界面，再保存退出。**
+（4）粘贴到test的文本编辑界面，再保存退出。
 ```
 #!/bin/sh
 #PBS -l nodes=1:ppn=5         
@@ -306,7 +306,7 @@ writetable(result_table1, 'test1.csv');
 
 ![image.png](image/3/3.21.png)
 
-（3）使用命令行`cd /project1/wuyida/matlab/test/`进入该目录，使用**文本编辑器**`vim test`**（见2.3节）**编写任务脚本**test**，**test**的内容如下所示。**同学们可以直接将下面的脚本复制后使用鼠标右键（ctrl+v不行）将其直接粘贴到test的文本编辑界面，再保存退出。**
+（3）使用命令行`cd /project1/wuyida/matlab/test/`进入该目录，使用文本编辑器`vim test`（见2.3节）编写任务脚本**test**，**test**的内容如下所示。**同学们可以直接将下面的脚本复制后使用鼠标右键（ctrl+v不行）将其直接粘贴到test的文本编辑界面，再保存退出。**
 ```
 #!/bin/sh
 #PBS -l nodes=1:ppn=1          
@@ -387,7 +387,7 @@ writetable(result_table1, 'test2.csv');
 
 ![image.png](image/3/3.26.png)
 
-（3）使用命令行`cd /project1/wuyida/matlab/test/`进入该目录，使用**文本编辑器**`vim test`**（见2.3节）**编写任务脚本**test**，**test**的内容如下所示。**同学们可以直接将下面的脚本复制后使用鼠标右键（ctrl+v不行）将其直接粘贴到test的文本编辑界面，再保存退出。**
+（3）使用命令行`cd /project1/wuyida/matlab/test/`进入该目录，使用文本编辑器`vim test`（见2.3节）编写任务脚本**test**，**test**的内容如下所示。**同学们可以直接将下面的脚本复制后使用鼠标右键（ctrl+v不行）将其直接粘贴到test的文本编辑界面，再保存退出。**
 ```
 #!/bin/sh
 #PBS -l nodes=1:ppn=5           
@@ -464,7 +464,7 @@ dataframe.to_csv("test1.csv", sep=',')
 
 ![image.png](image/3/3.31.png)
 
-（3）使用命令行`cd /project1/wuyida/python/test/`进入该目录，使用**文本编辑器**`vim test`**（见2.3节）**编写任务脚本**test**，**test**的内容如下所示。**同学们可以直接将下面的脚本复制后使用鼠标右键（ctrl+v不行）将其直接粘贴到test的文本编辑界面，再保存退出。**
+（3）使用命令行`cd /project1/wuyida/python/test/`进入该目录，使用文本编辑器`vim test`（见2.3节）编写任务脚本**test**，**test**的内容如下所示。**同学们可以直接将下面的脚本复制后使用鼠标右键（ctrl+v不行）将其直接粘贴到test的文本编辑界面，再保存退出。**
 ```
 #!/bin/sh
 #PBS -l nodes=1:ppn=1          
