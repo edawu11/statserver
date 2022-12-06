@@ -65,7 +65,7 @@ save(a_mean,file="a_mean.R")
 
 ![image.png](image/3/3.2.png)
 
-（3）使用命令行`cd /project1/wuyida/R/test/`进入该目录，使用文本编辑器`vim test`（见2.3节）编写任务脚本**test**，**test**的内容如下所示。**同学们可以直接将下面的脚本复制后使用鼠标右键（ctrl+v不行）将其直接粘贴到test的文本编辑界面，再保存退出。**
+（3）使用命令行`cd /project1/wuyida/R/test/`进入该目录，使用文本编辑器`vim test`（见2.3节）编写任务脚本**test**，**test**的内容如下所示。**同学们可以直接将下面的脚本复制后使用鼠标右键（ctrl+v不行）将其直接粘贴到test的文本编辑界面修改，再保存退出。**
 ```
 #!/bin/sh
 #PBS -l nodes=1:ppn=1          
@@ -214,7 +214,7 @@ save(allmean,file="allmean.R")
 
 ![image.png](image/3/3.12.png)
 
-（3）使用命令行`cd /project1/wuyida/R/test/`进入该目录，使用文本编辑器`vim test`（见2.3节）编写任务脚本**test**，**test**的内容如下所示。**同学们可以直接将下面的脚本复制后使用鼠标右键（ctrl+v不行）将其直接粘贴到test的文本编辑界面，再保存退出。**
+（3）使用命令行`cd /project1/wuyida/R/test/`进入该目录，使用文本编辑器`vim test`（见2.3节）编写任务脚本**test**，**test**的内容如下所示。**同学们可以直接将下面的脚本复制后使用鼠标右键（ctrl+v不行）将其直接粘贴到test的文本编辑界面修改，再保存退出。**
 
 （4）粘贴到test的文本编辑界面，再保存退出。
 ```
@@ -306,7 +306,7 @@ writetable(result_table1, 'test1.csv');
 
 ![image.png](image/3/3.21.png)
 
-（3）使用命令行`cd /project1/wuyida/matlab/test/`进入该目录，使用文本编辑器`vim test`（见2.3节）编写任务脚本**test**，**test**的内容如下所示。**同学们可以直接将下面的脚本复制后使用鼠标右键（ctrl+v不行）将其直接粘贴到test的文本编辑界面，再保存退出。**
+（3）使用命令行`cd /project1/wuyida/matlab/test/`进入该目录，使用文本编辑器`vim test`（见2.3节）编写任务脚本**test**，**test**的内容如下所示。**同学们可以直接将下面的脚本复制后使用鼠标右键（ctrl+v不行）将其直接粘贴到test的文本编辑界面修改，再保存退出。**
 ```
 #!/bin/sh
 #PBS -l nodes=1:ppn=1          
@@ -387,7 +387,7 @@ writetable(result_table1, 'test2.csv');
 
 ![image.png](image/3/3.26.png)
 
-（3）使用命令行`cd /project1/wuyida/matlab/test/`进入该目录，使用文本编辑器`vim test`（见2.3节）编写任务脚本**test**，**test**的内容如下所示。**同学们可以直接将下面的脚本复制后使用鼠标右键（ctrl+v不行）将其直接粘贴到test的文本编辑界面，再保存退出。**
+（3）使用命令行`cd /project1/wuyida/matlab/test/`进入该目录，使用文本编辑器`vim test`（见2.3节）编写任务脚本**test**，**test**的内容如下所示。**同学们可以直接将下面的脚本复制后使用鼠标右键（ctrl+v不行）将其直接粘贴到test的文本编辑界面修改，再保存退出。**
 ```
 #!/bin/sh
 #PBS -l nodes=1:ppn=5           
@@ -464,7 +464,7 @@ dataframe.to_csv("test1.csv", sep=',')
 
 ![image.png](image/3/3.31.png)
 
-（3）使用命令行`cd /project1/wuyida/python/test/`进入该目录，使用文本编辑器`vim test`（见2.3节）编写任务脚本**test**，**test**的内容如下所示。**同学们可以直接将下面的脚本复制后使用鼠标右键（ctrl+v不行）将其直接粘贴到test的文本编辑界面，再保存退出。**
+（3）使用命令行`cd /project1/wuyida/python/test/`进入该目录，使用文本编辑器`vim test`（见2.3节）编写任务脚本**test**，**test**的内容如下所示。**同学们可以直接将下面的脚本复制后使用鼠标右键（ctrl+v不行）将其直接粘贴到test的文本编辑界面修改，再保存退出。**
 ```
 #!/bin/sh
 #PBS -l nodes=1:ppn=1          
