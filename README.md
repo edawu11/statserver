@@ -20,5 +20,5 @@
 
 [6. 注意事项](/docs/source/raw/服务器使用基本教程/CH6注意事项.md)
 
-[7. 参考资料](/docs/source/raw/服务器使用基本教程/CH7参考资料.md)
+[7. 参考和补充资料](/docs/source/raw/服务器使用基本教程/CH7参考资料.md)
 
