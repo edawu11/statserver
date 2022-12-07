@@ -162,5 +162,3 @@ IRkernel::installspec(name='irxy', displayname='Rx.y')
 ## 6. 配置tex、Julia等其他环境
 TBD
 
---- 
-本节撰写：王琨

@@ -8,5 +8,3 @@
 1. 刘遄，[Linux入门教程之《Linux就该这么学》](https://maiimg.com/dec/d93858642201@pdf)
 2. [Linux十大常用命令](https://maiimg.com/dec/d91053637443@pdf)
 
----
-资料收集：吴易达
