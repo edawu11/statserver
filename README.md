@@ -8,7 +8,7 @@
 
 ## 服务器使用基本教程
 
-[1. 服务器简介和连接服务器](/docs/source/docs/source/raw/服务器使用基本教程/CH1服务器简介和连接服务器.md)
+[1. 服务器简介和连接服务器](/docs/source/raw/服务器使用基本教程/CH1服务器简介和连接服务器.md)
 
 [2. Linux系统基本知识](/docs/source/raw/服务器使用基本教程/CH2Linux系统基本知识.md)
 
