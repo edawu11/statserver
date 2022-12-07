@@ -1,4 +1,5 @@
 # 4 服务器环境配置
+
 拿到账号后，在运行自己的脚本前最重要的是安装软件和配置环境。推荐大家使用conda来管理自己的环境，支持Python, R, julia等多种语言，且安装、使用非常方便。
 ## 1. 安装conda
 这里推荐安装Miniconda，因为Anaconda自带的包太多，没什么用装起来很慢。
@@ -160,3 +161,6 @@ IRkernel::installspec(name='irxy', displayname='Rx.y')
 
 ## 6. 配置tex、Julia等其他环境
 TBD
+
+--- 
+本节撰写：王琨
