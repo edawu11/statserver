@@ -160,6 +160,6 @@ IRkernel::installspec(name='irxy', displayname='Rx.y')
 ```
 然后就会在jupyter显示名为Rx.y的kernel，打开就可以写 R 代码了
 
-## 6. 配置tex、Julia等其他环境
+## 7. 配置tex、Julia等其他环境
 TBD
 
