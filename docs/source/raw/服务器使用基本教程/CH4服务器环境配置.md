@@ -75,7 +75,8 @@ conda create -n R41 r-base=4.1
 这时，进入 R41 环境后再输入命令 `R` 就是用的刚刚安装的 R ，不是公共的 R，
 
 tips0: 如果有 R 包用 `install.packages()` 装不上的情况，可以用 `conda install r-xx` 来安装。
-tips1: 如果有需求可以请管理员装一个rstudio-server，大致效果是在本地浏览器打开一个网页就是Rstudio的界面。
+
+tips1: 可以使用第5节服务器在线资源的链接连接服务器的RStudio。
 
 ## 5. 在pbs中如何指定 conda 环境
 只需要在脚本里添加如下两行
