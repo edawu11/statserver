@@ -25,4 +25,9 @@
    raw/服务器使用基本教程/CH6注意事项.md
    raw/服务器使用基本教程/CH7参考资料.md
 
+.. toctree::
+   :maxdepth: 1
+   :caption: 服务器使用进阶教程
+
+   raw/服务器使用进阶教程/与NAS云盘连接.md
 
