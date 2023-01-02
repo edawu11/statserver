@@ -8,9 +8,10 @@ https://docs.conda.io/en/latest/miniconda.html
 安装步骤：
 ```
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+
 sh Miniconda3-latest-Linux-x86_64.sh
 ```
-然后根据文字提示操作，安装好后注意改一下环境变量。
+然后根据文字提示操作，安装好后**注意修改环境变量**，可以参考[环境变量设置](https://blog.csdn.net/Alex_Sheng_Sea/article/details/88225968)中的方法二。
 
 
 ## 2. conda常用命令
