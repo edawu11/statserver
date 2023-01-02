@@ -95,7 +95,7 @@ cd $PBS_O_WORKDIR
 - 第五行：设置程序的错误提示的文件名称（与脚本文件在同一个目录下），用户可以在这个文件内查看任务的报错信息
 - 第六、七行：设置任务完成自动发送邮箱提醒功能，**同学们可以根据自身需要选择这两行是否保留**
 - 第八行：进入执行命令的工作目录
-- 第九行：/usr/local/bin/R是R语言所在的路径（Linux中可以使用`which R`查看），test1.R是待执行的R代码文件**（根据实际改）**
+- 第九行：/usr/local/bin/R是R语言所在的路径（Linux中可以使用`which R`查看），test1.R是待执行的R代码文件（需更改）。
 
 （4）使用`qsub test`命令提交程序，使用`qstat`查看任务进程。
 
@@ -244,7 +244,7 @@ cd $PBS_O_WORKDIR
 - 第五行：设置程序的错误提示的文件名称（与脚本文件在同一个目录下），用户可以在这个文件内查看任务的报错信息
 - 第六、七行：设置任务完成自动发送邮箱提醒功能，同学们可以根据自身需要选择这两行是否保留
 - 第八行：进入执行命令的工作目录
-- 第九行：/usr/local/bin/R是R语言所在的路径（Linux中可以使用`which R`查看），test1.R是待执行的R代码文件**（根据实际改）**
+- 第九行：/usr/local/bin/R是R语言所在的路径（Linux中可以使用`which R`查看），test1.R是待执行的R代码文件（需更改）。
 
 （5）使用`qsub test`命令提交程序，使用`qstat`查看任务进程。
 
@@ -335,7 +335,7 @@ cd $PBS_O_WORKDIR
 - 第五行：设置程序的错误提示的文件名称（与脚本文件在同一个目录下），用户可以在这个文件内查看任务的报错信息
 - 第六、七行：设置任务完成自动发送邮箱提醒功能，同学们可以根据自身需要选择这两行是否保留
 - 第八行：进入执行命令的工作目录
-- 第九行：/usr/local/bin/matlab是Matlab所在的路径（Linux中可以使用`which matlab`查看），test1.m是待执行的Matlab代码文件**（根据实际改）**。
+- 第九行：/usr/local/bin/matlab是Matlab所在的路径（Linux中可以使用`which matlab`查看），test1.m是待执行的Matlab代码文件（需更改）。
 
 （4）使用`qsub test`命令提交程序，使用`qstat`查看任务进程。
 
@@ -416,7 +416,7 @@ cd $PBS_O_WORKDIR
 - 第五行：设置程序的错误提示的文件名称（与脚本文件在同一个目录下），用户可以在这个文件内查看任务的报错信息
 - 第六、七行：设置任务完成自动发送邮箱提醒功能，同学们可以根据自身需要选择这两行是否保留
 - 第八行：进入执行命令的工作目录
-- 第九行：/usr/local/bin/matlab是Matlab所在的路径（Linux中可以使用`which matlab`查看），test2.m是待执行的Matlab代码文件**（根据实际改）**。
+- 第九行：/usr/local/bin/matlab是Matlab所在的路径（Linux中可以使用`which matlab`查看），test2.m是待执行的Matlab代码文件（需更改）。
 
 （4）使用`qsub test`命令提交程序，使用`qstat`查看任务进程。
 
@@ -495,7 +495,7 @@ cd $PBS_O_WORKDIR
 - 第五行：设置程序的错误提示的文件名称（与脚本文件在同一个目录下），用户可以在这个文件内查看任务的报错信息
 - 第六、七行：设置任务完成自动发送邮箱提醒功能，同学们可以根据自身需要选择这两行是否保留
 - 第八行：进入执行命令的工作目录
-- 第九行：/var/lib/anaconda3/bin/python3是python3所在的路径（Linux中可以使用`which python3`查看），test1.py是待执行的python代码文件**（根据实际改）**。
+- 第九行：/var/lib/anaconda3/bin/python3是python3所在的路径（Linux中可以使用`which python3`查看，如果在个人账户下安装了python，记得更改路径），test1.py是待执行的python代码文件（需更改）。
 
 （4）使用`qsub test`命令提交程序，使用`qstat`查看任务进程。
 
