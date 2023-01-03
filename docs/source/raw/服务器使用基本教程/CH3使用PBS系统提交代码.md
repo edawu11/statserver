@@ -155,22 +155,22 @@ for(p in jobB:jobE){
 
 ![image.png](image/3/3.7.png)
 
-[qsub_r.pl文件下载地址](https://pan.baidu.com/s/1pOUWUFctuB8u0h_xWLe84A) 
+[qsub_r.pl文件下载地址](https://pan.baidu.com/s/1OFqZSCCHLb1jGSXgRbmbCA) 
 
-提取码：lfvu 
+提取码：3olg 
 
 （3）进入/project1/wuyida/R/test/，使用perl命令提交代码，**在这里你需要设置调用多少个核以及每个核的运算次数**。
 ```perl
-perl ./qsub_r.pl /project1/wuyida/R/test test_ batch 5 20 /project1/wuyida/R/test Rscript test2.R
+perl ./qsub_r.pl /project1/wuyida/R/test test_ 1 5 20 /project1/wuyida/R/test Rscript test2.R
 ```
 ![image.png](image/3/3.8.png)
 
 **注释**
 
-- `perl ./qsub_r.pl` 调用perl执行qsub_r.pl文件，`./`是执行的意思；
-- `/project1/wuyida/R/test test_ batch 5 20` `/project1/wuyida/R/test`是任务文件的输出路径（.job/.err/.out），以及你的代码保存文件的默认输出路径（建议在R代码里设好保存路径）；`batch`指队列代号；`5`指调用5个核，`20`指每个核计算20次，所以这里相当于调用5个核执行100次循环，对应于for循环的1-100。如果想要改变循环的起点和终点，可以在 R 代码的for循环部分添加一个常数；
+- `perl ./qsub_r.pl` 调用perl执行qsub_r.pl文件，`./`是执行的意思，**均不用改动**；
+- `/project1/wuyida/R/test`是任务文件（.job/.err/.out）的输出路径，以及你的代码保存文件的默认输出路径（建议在R代码里设好保存路径）；`test_`是任务的前缀名；`1`指节点数（**不用改动**）；`5`指调用5个核，`20`指每个核计算20次，所以这里相当于调用5个核执行100次循环，对应于for循环的1-100。如果想要改变循环的起点和终点，可以在 R 代码的for循环部分添加一个常数。**这一部分除了节点数，其它根据实际修改**；
 - `/project1/wuyida/R/test` 作业运行的工作目录，一般和前面的工作目录保持一致即可；
--  `Rscript test2.R` 调用Rscript运行test2.R文件。
+-  `Rscript test2.R` 调用Rscript运行test2.R文件，**代码文件名根据实际修改**。
 
 （4）使用`qstat`查看任务运行情况
 
@@ -518,3 +518,35 @@ cd $PBS_O_WORKDIR
 **提醒**  如果有多段相同功能的代码需要运行，可以使用编程语言批量生成多组脚本（单核PBS脚本+代码脚本）后一次性提交，同学们可以使用python、shell、perl等语言实现此功能。
 
 到此，任务实现完毕O(∩_∩)O
+
+## 3.3 使用83服务器的特别说明
+
+由于83服务器搭建了集群（有2个节点：stat1-0和stat2-0，每个节点各有152个核），所以在使用PBS系统时有以下细节需要注意。
+
+### 3.3.1 PBS脚本需指定节点
+
+如果同学们使用到3.2节中提到的编写PBS任务脚本提交任务，如下面这个**test**脚本，需要做一点修改。
+
+```
+#!/bin/sh
+#PBS -l nodes=1:ppn=1          
+#PBS -l walltime=30000:00:00       
+#PBS -o routput                   
+#PBS -e rerror
+#PBS -m abe
+#PBS -M example@xxx.xx 
+cd $PBS_O_WORKDIR
+/usr/local/bin/R < test1.R --save
+```
+
+在这个脚本中，需要将第二行`nodes=1`改成`nodes=stat1-0`或者`stat2-0`，具体使用哪个节点与管理员沟通。
+
+### 3.3.2 使用perl脚本提交R代码
+
+[qsub_r.pl文件下载地址](https://pan.baidu.com/s/1OFqZSCCHLb1jGSXgRbmbCA)，提取码：3olg 。当使用3.2.1中的perl脚本提交R代码时，需要将节点数更改为具体的节点名，如以下示例代码的`stat1-0`，或改为`stat2-0`。其它地方与81服务器一致。
+```
+perl ./qsub_r.pl /data/wuyida/R test_perl_ stat1-0 5 1 /data/wuyida/R Rscript test.R
+```
+
+
+
