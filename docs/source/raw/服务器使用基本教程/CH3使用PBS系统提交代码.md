@@ -539,7 +539,7 @@ cd $PBS_O_WORKDIR
 /usr/local/bin/R < test1.R --save
 ```
 
-在这个脚本中，需要将第二行`nodes=1`改成`nodes=stat1-0`或者`stat2-0`，具体使用哪个节点与管理员沟通。
+在这个脚本中，需要将第二行`nodes=1`改成`nodes=stat1-0`或者`nodes=stat2-0`，具体使用哪个节点与管理员沟通。
 
 ### 3.3.2 使用perl脚本提交R代码
 
@@ -548,5 +548,10 @@ cd $PBS_O_WORKDIR
 perl ./qsub_r.pl /data/wuyida/R test_perl_ stat1-0 5 1 /data/wuyida/R Rscript test.R
 ```
 
+### 3.3.3 如何查看各个节点的使用情况
+
+使用命令`qstat -n`可以看到`stat1-0`和`stat2-0`的任务情况，如图所示。
+
+![image.png](image/3/3.36.png)
 
 
