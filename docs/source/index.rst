@@ -10,7 +10,7 @@
    :caption: 写在前面
 
    raw/写在前面/推荐阅读顺序.md
-   raw/写在前面/近期主要更新.md
+   raw/写在前面/近期主要更新说明.md
 
 .. toctree::
    :maxdepth: 1
