@@ -442,10 +442,10 @@ cd $PBS_O_WORKDIR
 
 #### （一）版本说明
 
-81服务器Python版本：3.7.0（2018）
+服务器Python版本：3.7.0（2018）
 
-**提醒**  推荐同学们参见第4节服务器环境配置在自己的个人账户下安装miniconda，用其来管理自己的python环境和安装包更方便。
-如果不安装miniconda，安装python的包可以直接在命令行里用`pip`安装。
+**提醒**  推荐同学们参见[第4节服务器环境配置](https://statserver.readthedocs.io/zh/latest/raw/服务器使用基本教程/CH4服务器环境配置.html)
+在自己的个人账户下安装miniconda，用其来管理自己的python环境和安装包更方便。如果不安装miniconda，安装python的包可以直接在命令行里用`pip`安装。
 
 #### （二）单核任务提交方法：PBS脚本
 
