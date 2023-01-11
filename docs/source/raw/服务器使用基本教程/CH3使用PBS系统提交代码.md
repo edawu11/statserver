@@ -14,7 +14,7 @@
 | --- | --- |
 | `qstat` | 查看PBS系统正在运行以及排队的任务 |
 | `qstat -r` | 查看PBS系统正在运行以及排队的任务使用的节点数和核数 |
-| `qstat \|grep user` | 查看user这个用户的所有任务情况 |
+| `qstat |grep user` | 查看user这个用户的所有任务情况 |
 | `pbsnodes -a` | 查看PBS系统是否空闲 |
 | `qsub 脚本文件` | 提交任务 |
 | `qdel 任务序号` | 删除单个任务 |
