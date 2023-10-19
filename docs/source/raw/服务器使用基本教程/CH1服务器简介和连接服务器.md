@@ -45,7 +45,7 @@
 ## 1.3 进入服务器终端
 ### 1.3.1 通过软件进入——MobaXterm（Win端）
 
-（1）在个人电脑上安装**MobaXterm**[下载地址](https://mobaxterm.mobatek.net/download.html）
+（1）在个人电脑上安装**MobaXterm**[下载地址](https://mobaxterm.mobatek.net/download.html)
 
 ![image.png](image/1/1.1.png)
 
@@ -73,7 +73,7 @@
 
 ![image.png](image/1/1.6.png)
 
-PS：近期有同学反应Apple Store下载不了，可以直接从**Termius**官网下载[下载地址](https://termius.com/）
+PS：近期有同学反应Apple Store下载不了，可以直接从**Termius**官网下载[下载地址](https://termius.com/)
 
 （2）下载后完成设置和创建账户（与服务器账户无关）
 
