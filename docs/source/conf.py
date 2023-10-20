@@ -48,7 +48,15 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
+from recommonmark.parser import CommonMarkParser
+import sphinx_rtd_theme
 html_theme = 'sphinx_rtd_theme'
+html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+source_parsers = {
+	'.md': CommonMarkParser,
+}
+source_suffix = ['.rst', '.md']
+extensions = ['recommonmark']
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
