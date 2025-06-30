@@ -2,4 +2,3 @@ Sphinx>=6.2,<8
 myst-parser==2.0.0
 sphinx-markdown-tables==0.0.17
 sphinx_rtd_theme
-sphinx-autosectionlabel
